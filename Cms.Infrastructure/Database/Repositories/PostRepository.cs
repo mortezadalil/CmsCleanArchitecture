@@ -14,6 +14,25 @@ namespace Cms.Infrastructure.Database.Repositories
     {
       _cmsDbContext = cmsDbContext;
     }
+
+    public async Task<Post> Add(Post domain)
+    {
+      var post = new Enities.Post
+      {
+        Title = domain.Title,
+        CreatedDate = domain.CreatedDate,
+        ModifiedDate = domain.ModifiedDate,
+        Content = domain.Content
+      };
+      await _cmsDbContext.Posts.AddAsync(post);
+
+      return new Post
+      {
+        Content = post.Content,
+        //ModifiedDate = //?
+      };
+    }
+
     public async Task<Post> GetById(int id)
     {
       var dbItemQuery = _cmsDbContext.Posts
