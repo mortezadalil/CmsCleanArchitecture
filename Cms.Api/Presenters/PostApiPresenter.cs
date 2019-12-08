@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text.Json;
-using System.Threading.Tasks;
+﻿using System.Net;
 using Cms.Core.Dtos.Generals;
 using Cms.Core.IUseCases;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 
 namespace Cms.Api.Presenters
 {

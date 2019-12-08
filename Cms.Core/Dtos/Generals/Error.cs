@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Cms.Core.Dtos.Generals
+﻿namespace Cms.Core.Dtos.Generals
 {
     public sealed class Error
     {
