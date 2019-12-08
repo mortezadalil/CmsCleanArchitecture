@@ -6,7 +6,7 @@ using Cms.Core.Dtos.UseCaseDtos;
 
 namespace Cms.Core.IUseCases
 {
-  public interface IAddPostUseCase : IUseCaseRequestHandler<AddPostRequest, GenericResponse<AddPostResponse>>
+  public interface IDeletePostUseCase : IUseCaseRequestHandler<DeletePostRequest, GenericResponse<bool>>
   {
 
   }

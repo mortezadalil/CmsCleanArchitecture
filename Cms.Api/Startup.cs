@@ -2,8 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Cms.Api.Presenters;
 using Cms.Core.IRepositories;
+using Cms.Core.IUseCases;
 using Cms.Core.Services;
+using Cms.Core.UseCases;
 using Cms.Infrastructure.Database;
 using Cms.Infrastructure.Database.Repositories;
 using Microsoft.AspNetCore.Builder;
@@ -35,6 +38,9 @@ namespace Cms.Api
 
       services.AddScoped<IPostService, PostService>();
       services.AddScoped<IPostRepository, PostRepository>();
+      services.AddScoped<IAddPostUseCase, AddPostUseCase>();
+      services.AddScoped<IDeletePostUseCase, DeletePostUseCase>();
+      services.AddScoped(typeof(PostApiPresenter<>));
       services.AddScoped<CmsDbContext>();
 
       services.AddControllers();

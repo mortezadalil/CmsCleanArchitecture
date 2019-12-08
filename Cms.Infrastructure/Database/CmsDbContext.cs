@@ -35,7 +35,7 @@ namespace Cms.Infrastructure.Database
     public CmsDbContext CreateDbContext(string[] args)
     {
       var optionsBuilder = new DbContextOptionsBuilder<CmsDbContext>();
-        optionsBuilder.UseSqlServer(@"Server=DESKTOP-AKTCEF1;Database=CmsDb;Trusted_Connection=True;");
+        optionsBuilder.UseSqlServer(@"Server=DALIL-PC\SQLEXPRESS;Database=CmsDb;Trusted_Connection=True;");
 
 
         return new CmsDbContext(optionsBuilder.Options);
