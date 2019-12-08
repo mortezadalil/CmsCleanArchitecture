@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Cms.Core.Domain;
 using Cms.Core.Dtos.UseCaseDtos;
@@ -50,6 +51,18 @@ namespace Cms.Infrastructure.Database.Repositories
             _cmsDbContext.Posts.Attach(post);
             _cmsDbContext.Posts.Remove(post);
             await _cmsDbContext.SaveChangesAsync();
+        }
+
+        public async Task<List<Post>> GetAll()
+        {
+          return await _cmsDbContext.Posts.Select(x=>new Post
+          {
+            ModifiedDate = x.ModifiedDate,
+            Content = x.Content,
+            CreatedDate = x.CreatedDate,
+            Title = x.Title,
+            Id = x.Id
+          }).ToListAsync();
         }
 
         public async Task<Post> GetById(int id)

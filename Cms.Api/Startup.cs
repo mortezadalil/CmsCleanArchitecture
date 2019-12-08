@@ -9,6 +9,7 @@ using Cms.Core.Services;
 using Cms.Core.UseCases;
 using Cms.Infrastructure.Database;
 using Cms.Infrastructure.Database.Repositories;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -42,7 +43,7 @@ namespace Cms.Api
       services.AddScoped<IDeletePostUseCase, DeletePostUseCase>();
       services.AddScoped(typeof(PostApiPresenter<>));
       services.AddScoped<CmsDbContext>();
-
+      services.AddMediatR(typeof(Startup));
       services.AddControllers();
     }
 
