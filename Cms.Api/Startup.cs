@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Cms.Api.Presenters;
 using Cms.Core.IRepositories;
 using Cms.Core.IUseCases;
+using Cms.Core.Queries;
 using Cms.Core.Services;
 using Cms.Core.UseCases;
 using Cms.Infrastructure.Database;
@@ -44,6 +46,7 @@ namespace Cms.Api
       services.AddScoped(typeof(PostApiPresenter<>));
       services.AddScoped<CmsDbContext>();
       services.AddMediatR(typeof(Startup));
+      services.AddMediatR(typeof(GetAllPostQuery).GetTypeInfo().Assembly);
       services.AddControllers();
     }
 
