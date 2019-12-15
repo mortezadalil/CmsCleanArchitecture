@@ -1,16 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Cms.Api.Presenters;
 using Cms.Core.IRepositories;
 using Cms.Core.IUseCases;
+using Cms.Core.Queries;
 using Cms.Core.Services;
 using Cms.Core.UseCases;
 using Cms.Infrastructure.Database;
 using Cms.Infrastructure.Database.Repositories;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -61,6 +60,9 @@ namespace Cms.Api
           };
       });
 
+      services.AddMediatR(typeof(Startup));
+      services.AddMediatR(typeof(GetAllPostQuery).GetTypeInfo().Assembly);
+      services.AddControllers();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
