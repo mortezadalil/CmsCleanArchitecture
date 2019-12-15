@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Cms.Core.Domain;
 using Cms.Core.Dtos.UseCaseDtos;
 using Cms.Core.IRepositories;
+using Cms.Infrastructure.Database.Enities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Cms.Infrastructure.Database.Repositories
@@ -17,7 +17,7 @@ namespace Cms.Infrastructure.Database.Repositories
             _cmsDbContext = cmsDbContext;
         }
 
-        public async Task<Post> Add(Post domain)
+        public async Task<Core.Domain.Post> Add(Core.Domain.Post domain)
         {
             var post = new Enities.Post
             {
@@ -30,7 +30,7 @@ namespace Cms.Infrastructure.Database.Repositories
             await _cmsDbContext.Posts.AddAsync(post);
             await _cmsDbContext.SaveChangesAsync();
 
-            return new Post
+            return new Core.Domain.Post
             {
                 Content = post.Content,
                 ModifiedDate = post.ModifiedDate,
@@ -53,9 +53,9 @@ namespace Cms.Infrastructure.Database.Repositories
             await _cmsDbContext.SaveChangesAsync();
         }
 
-        public async Task<List<Post>> GetAll()
+        public async Task<List<Cms.Core.Domain.Post>> GetAll()
         {
-          return await _cmsDbContext.Posts.Select(x=>new Post
+          return await _cmsDbContext.Posts.Select(x=>new Cms.Core.Domain.Post
           {
             ModifiedDate = x.ModifiedDate,
             Content = x.Content,
@@ -65,7 +65,7 @@ namespace Cms.Infrastructure.Database.Repositories
           }).ToListAsync();
         }
 
-        public async Task<Post> GetById(int id)
+        public async Task<Cms.Core.Domain.Post> GetById(int id)
         {
             var dbItemQuery = _cmsDbContext.Posts
               .Include(x => x.Comments)
@@ -76,14 +76,14 @@ namespace Cms.Infrastructure.Database.Repositories
             //Use AutoMapper Package for simplicity.
             //This section is for educational purposes only.
             return
-              await dbItemQuery.Select(dbItem => new Post
+              await dbItemQuery.Select(dbItem => new Cms.Core.Domain.Post
               {
                   Id = dbItem.Id,
                   Content = dbItem.Content,
                   CreatedDate = dbItem.CreatedDate,
                   ModifiedDate = dbItem.ModifiedDate,
                   Title = dbItem.Title,
-                  Comments = dbItem.Comments.Select(x => new Comment
+                  Comments = dbItem.Comments.Select(x => new Cms.Core.Domain.Comment
                   {
                       Id = x.Id,
                       Content = x.Content,
@@ -92,7 +92,7 @@ namespace Cms.Infrastructure.Database.Repositories
                       Name = x.Name,
                       PostId = x.PostId
                   }),
-                  Categories = dbItem.PostCategories.Select(x => new Category
+                  Categories = dbItem.PostCategories.Select(x => new Cms.Core.Domain.Category
                   {
                       Id = x.Id,
                       Title = x.Category.Title
@@ -100,10 +100,10 @@ namespace Cms.Infrastructure.Database.Repositories
               }).FirstOrDefaultAsync(dbItem => dbItem.Id == id);
         }
 
-        public async Task<Post> GetByIdWithoutIncludes(int id)
+        public async Task<Cms.Core.Domain.Post> GetByIdWithoutIncludes(int id)
         {
             return await _cmsDbContext.Posts
-              .Select(x => new Post
+              .Select(x => new Cms.Core.Domain.Post
               {
                   Id = x.Id,
                   Content = x.Content,
